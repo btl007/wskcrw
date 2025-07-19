@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  background-color: #0a0a13;
+  /*background-color: #132238; */
+  color: white;
+}
+
+@keyframes gradient-xy {
+  0%, 100% {
+    background-position: left top;
+  }
+  50% {
+    background-position: right bottom;
+  }
+}
+
+.bg-flowing {
+  background-size: 200%, 200%;
+  animation: gradient-xy 10s ease infinite;
+}
+
+
+/* Add font */
+
+@import "@fontsource/unbounded/700.css"; /* Add Unbounded with npm */
+
+.font-unbounded {
+  font-family: 'Unbounded', sans-serif;
+}
+
+/* Clas Display 수동 추가 */
+.font-clash {
+  font-family: 'Clash Display', sans-serif;
+}
+
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/src/fonts/ClashDisplay-Extralight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/src/fonts/ClashDisplay-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/src/fonts/ClashDisplay-Medium.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/src/fonts/ClashDisplay-Regular.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/src/fonts/ClashDisplay-Semibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/src/fonts/ClashDisplay-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
