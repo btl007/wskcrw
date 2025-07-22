@@ -27,11 +27,15 @@ body {
 
 
 /* Add font */
+@import "@fontsource/roboto-mono"; /* Add Roboto-mono with npm */
+@import "@fontsource/unbounded"; /* Add Unbounded with npm */
 
-@import "@fontsource/unbounded/700.css"; /* Add Unbounded with npm */
+.font-roboto {
+  font-family: 'roboto-mono', monospace;
+}
 
 .font-unbounded {
-  font-family: 'Unbounded', sans-serif;
+  font-family: 'unbounded', sans-serif;
 }
 
 /* Clas Display 수동 추가 */
@@ -79,4 +83,136 @@ body {
     src: url('/src/fonts/ClashDisplay-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
+  }
+
+/* Robert Sans 수동 추가 */
+.font-robert {
+  font-family: 'Robert Sans', sans-serif;
+}
+  /* Thin */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+  }
+  /* ExtraLight */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+  }
+  /* Light */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  /* Regular */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  /* Medium */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  /* Semibold */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  /* Bold */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  /* ExtraBold */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+  }
+  /* Black */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }
+  /* Italic */
+  /* Thin Italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+  }
+  /* ExtraLight italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+  }
+  /* Light italic*/
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+  }
+  /* Regular italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+  }
+  /* Medium italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+  }
+  /* Semibold italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+  }
+  /* Bold italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+  }
+  /* ExtraBold italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+  }
+  /* Black italic */
+  @font-face {
+    font-family: 'Robert Sans';
+    src: url('/src/fonts/RobertSans-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
   }

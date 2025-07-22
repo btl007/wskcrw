@@ -15,6 +15,9 @@ export default {
             fontFamily: {
                 sans: ['Pretendard', 'sans-serif'], //커스텀 폰트
                 clash: ['Clash Display', 'sans-serif'], //Clash Display 폰트
+                unbounded: ['Unbounded', 'sans-serif'],
+                roboto: ['Roboto mono', 'monospace'],
+                robert: ['Robert Sans', 'sans-serif'],
             },
         },
       },

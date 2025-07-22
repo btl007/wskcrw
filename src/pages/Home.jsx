@@ -5,33 +5,41 @@ import bgVideo from '../../src/bg.mp4'
 
 export default function Home() {
     return(
-        <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center
-            bg-gradient-to-br from-[#0f127a] via-[#1e293b] to-[#1c1c1c] text-white px-6">
-            {/* Overlay */}
+        <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-6">
+            
             {/* Header Positioning */}
             <Header />
-
-            <div className="absolute inset-0 bg-black/10 z-0" />
-
+        
             {/* flowing Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-blue-800 to-orange-500
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-400 via-blue-400 to-blue-800
                 bg-[length:200%_200%] bg-flowing z-10" />
 
-            {/* glassmorphism */}
+            {/* glassmorphism Overlay */}
             <div className="absolute top-0 left-0 w-full h-full backdrop-blur-xl bg-white/10 z-20" />
 
             {/* Center Circle Gradient */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                            w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-white/20 via-pink-300/30 to-transparent
-                            blur-xl opacity-70 z-20 pointer-events-none" />
+                            w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-white/50 via-pink-300/30 to-transparent
+                            blur-xl opacity-80 z-20 pointer-events-none" />
 
             {/* Main Text */}
             <div className="relative z-30 space-y-6">
-                <h1 className="text-5xl md:text-7xl font-light font-clash leading-tight tracking-tight">
-                    We SKetch Keyframes
+                <div className="flex items-baseline">
+                <h1 className="text-5xl md:text-7xl font-thin font-robert">
+                    Authentic
                 </h1>
-                <p className="text-lg md:text-xl font-light">
-                    SYMPHATIC, AUTHENTIC, CONTEMPORARY. IN SEOUL
+                <h1 className="ml-5 text-5xl md:text-8xl font-base font-roboto leading-tight tracking-tight">
+                    KEY
+                </h1>
+                <h1 className="ml-5 text-5xl md:text-7xl font-light font-clash font-italic leading-tight tracking-tight">
+                    of
+                </h1>
+                <h1 className="ml-5 text-5xl md:text-7xl font-bold font-unbounded leading-tight tracking-tight">
+                    Frames
+                </h1>
+                </div>
+                <p className="text-lg md:text-xl font-thin font-robert">
+                    SYMPHATIC, AUTHENTIC, CONTEMPORARY <br />BASED IN SEOUL
                 </p>
             </div>
         </section>

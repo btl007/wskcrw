@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound'; //404대응
 
 import DagymGuide from './pages/dagymguide';
+import Works from './pages/Works';
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 					<Route path="*" element={<NotFound />} />
 
 					<Route path="dagymguide" element={<DagymGuide />} />
+					<Route path="works" element={<Works />} />
 
 			
 				</Routes>
