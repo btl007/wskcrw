@@ -18,7 +18,7 @@ import thumb3 from '../img/thumb3.png'
 export default function DagymGuide () {
     return (
         <section className="w-full justify-center mx-auto flex font-ibm text-gray-200 bg-[rgb(21,26,35)]">
-            <div id="page-wrapper" className="w-full grid grid-cols-12 gap-2 px-16 mx-auto">
+            <div id="page-wrapper" className="w-full md:grid grid-cols-12 gap-2 px-5 md:px-16 mx-auto">
                 <nav className="hidden md:block lg:block col-start-1 col-span-3 sticky h-max top-16">
                     <h3 className="py-6 text-left text-gray-400 text-xl font-bold">다짐 광고영상 가이드</h3>
                     <ul className="space-y-6 font-ibm text-base text-gray-400 font-semibold">
@@ -29,8 +29,8 @@ export default function DagymGuide () {
                     </ul>
                 </nav>
 
-                <div id="notice" className="w-[360px] md:w-[700px] col-start-1 md:col-start-4 mx-auto mt-20">
-                    <h2 className="text-left text-2xl md:text-3xl font-semibold mb-4">✨ 광고영상 촬영 유의사항 (필독)</h2>
+                <div id="notice" className="w-9/10 md:w-[700px] md:col-start-4 mx-auto mt-20">
+                    <h2 className="text-left text-xl md:text-3xl font-semibold mb-4">✨ 다짐 광고영상 촬영 가이드 (필독)</h2>
                     <p className="text-left text-base leading-relaxed mt-2 mb-10">
                     사진 촬영과 <strong className="text-orange-400">"광고 영상 촬영"</strong>은 별개의 팀으로 움직이고 있습니다! 현재 문서는 “광고 촬영팀”이 진행합니다.<br /><br />
                     광고 영상 촬영은 ‘오디오’에 굉장히 민감합니다. 따라서, 회원님들이 최대한 없거나, 영업 마감 이후로 촬영 진행하고 있습니다.<br /><br />
@@ -119,7 +119,7 @@ export default function DagymGuide () {
 
                     {/* 2nd Paragraph */}
 
-                    <h2 id="shoot-info" className="text-left text-2xl md:text-3xl font-semibold mt-20 mb-4">🎥 촬영 안내</h2>
+                    <h2 id="shoot-info" className="text-left text-xl md:text-3xl font-semibold mt-20 mb-4">🎥 촬영 안내</h2>
                     <p className="text-left text-base leading-relaxed mt-2 mb-10">
                     
                     </p>
@@ -160,7 +160,7 @@ export default function DagymGuide () {
                         </p>
                     </ToggleSection>
 
-                    <h2 id="script" className="text-left text-2xl md:text-3xl font-semibold mt-20 mb-4">📓  대본 작성하기</h2>
+                    <h2 id="script" className="text-left text-xl md:text-3xl font-semibold mt-20 mb-4">📓  대본 작성하기</h2>
                     <p className="text-left text-base leading-relaxed mt-2 mb-10">
                     광고 영상 대본은 센터의 장점과 담고 싶은 내용을 촬영하기 위해 센터에서 직접 작성합니다!<br />
                     대본은 A4 용지 2쪽 이내 분량이 적절하며, 작성하시는 데에 궁금한 점이나 애로사항이 있으시면 언제든지 촬영팀에게 문의해주세요!<br />
@@ -169,7 +169,7 @@ export default function DagymGuide () {
                     담고 싶은 내용이 있으시다면! 꼭 말씀해주세요! 무조건 반영해드립니다!<br />
                     </p>
 
-                    <h3 className="text-left text-xl md:text-2xl font-semibold mt-4 mb-2">1. 일반 퍼블릭 헬스 센터 대본을 쓰기위한 문답</h3>
+                    <h3 className="text-left text-lg md:text-2xl tracking-tighter md:tracking-normal font-semibold mt-4 mb-2">1. 일반 퍼블릭 헬스 센터 대본을 쓰기위한 문답</h3>
                     <ToggleDrop
                         items={[
                             { title: "기구", content: 
@@ -418,6 +418,8 @@ export default function DagymGuide () {
                             </div>
                         </a>
                     </div>
+
+                    <div className="mb-10" />
                 </div>
             </div>
             
