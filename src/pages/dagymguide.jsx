@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import '../../tailwind.config.js'
 
 import ToggleSection from '../components/ToggleSection.jsx';
@@ -13,41 +14,12 @@ import thumb1 from '../img/thumb1.png'
 import thumb2 from '../img/thumb2.png'
 import thumb3 from '../img/thumb3.png'
 
-/* Markdown to React
-# 제목1
-<h1 className="text-4xl font-bold mb-4">제목1</h1>
-## 제목2
-<h2 className="text-3xl font-semibold mt-10 mb-4">제목2</h2>
-### 제목3
-<h3 className="text-2xl font-medium mt-8 mb-3">제목3</h3>
-#### 제목4
-<h4 className="text-xl font-medium mt-6 mb-2">제목4</h4>
-일반 문단
-<p className="text-base leading-relaxed mb-4">내용</p>
-**굵은 글자**
-<strong className="font-bold">굵은 글자</strong>
-*기울임 글자*
-<em className="italic">기울임 글자</em>
-- 리스트 항목- 리스트 항목
-jsx <ul className="list-disc ml-6 space-y-1"> <li>리스트 항목</li><li>리스트 항목</li></ul> 
-1. 번호 리스트
-jsx <ol className="list-decimal ml-6 space-y-1"> <li>항목</li><li>항목</li></ol> 
-`코드블럭`
-<code className="bg-gray-100 px-1 rounded text-sm font-mono">코드블럭</code>
-js<br>console.log("hi")<br>
-jsx <pre className="bg-gray-100 p-4 rounded text-sm overflow-auto"> <code>console.log("hi")</code> </pre> 
-![alt](src)
-<img src="경로" alt="alt" className="rounded shadow mb-4" />
-[링크](https://링크)
-<a href="https://링크" className="text-blue-500 underline hover:text-blue-700">링크</a>
-*/
-
 
 export default function DagymGuide () {
     return (
         <section className="w-full justify-center mx-auto flex font-ibm text-gray-200 bg-[rgb(21,26,35)]">
             <div id="page-wrapper" className="w-full grid grid-cols-12 gap-2 px-16 mx-auto">
-                <nav className="col-start-1 col-span-3 sticky h-max top-16">
+                <nav className="hidden md:block lg:block col-start-1 col-span-3 sticky h-max top-16">
                     <h3 className="py-6 text-left text-gray-400 text-xl font-bold">다짐 광고영상 가이드</h3>
                     <ul className="space-y-6 font-ibm text-base text-gray-400 font-semibold">
                         <li><a href="#notice" className="hover:text-white transition">유의 사항</a></li>
@@ -57,12 +29,13 @@ export default function DagymGuide () {
                     </ul>
                 </nav>
 
-                <div id="notice" className="w-[360px] md:w-[700px] col-start-4 mx-auto mt-20">
-                    <h2 className="text-left text-2xl md:text-3xl font-semibold mb-4">✨ 유의사항 (필독)</h2>
+                <div id="notice" className="w-[360px] md:w-[700px] col-start-1 md:col-start-4 mx-auto mt-20">
+                    <h2 className="text-left text-2xl md:text-3xl font-semibold mb-4">✨ 광고영상 촬영 유의사항 (필독)</h2>
                     <p className="text-left text-base leading-relaxed mt-2 mb-10">
-                    사진 촬영과 광고 영상 촬영은 별개의 팀으로 움직이고 있습니다! 현재 문서는 “광고 촬영팀”이 진행합니다.<br /><br />
+                    사진 촬영과 <strong className="text-orange-400">"광고 영상 촬영"</strong>은 별개의 팀으로 움직이고 있습니다! 현재 문서는 “광고 촬영팀”이 진행합니다.<br /><br />
                     광고 영상 촬영은 ‘오디오’에 굉장히 민감합니다. 따라서, 회원님들이 최대한 없거나, 영업 마감 이후로 촬영 진행하고 있습니다.<br /><br />
-                    모든 인터뷰 영상의 내용은 센터별로 상이하며, 맞춤형으로 촬영팀이 사전 또는 현장에서 조율하여 만들어드립니다. 멘트 전체를 외우기 보다는 키워드 위주로 소구 포인트를 전달해주시면 더 좋은 영상이 만들어집니다.<br/>
+                    모든 광고 영상의 내용(대본)은 센터별로 상이하며, 센터에서 대본을 사전에 작성하는 것을 기본으로 하되,<br />
+                    촬영팀과 사전 또는 현장에서 조율하여 대본 작성이 가능합니다. 멘트 전체를 외우기 보다는 키워드 위주로 소구 포인트를 작성해주시면 더 좋은 영상이 만들어집니다.<br/>
                     </p>
 
                     <ToggleSection title="1. 24시간 운영 센터">
@@ -190,7 +163,8 @@ export default function DagymGuide () {
                     <h2 id="script" className="text-left text-2xl md:text-3xl font-semibold mt-20 mb-4">📓  대본 작성하기</h2>
                     <p className="text-left text-base leading-relaxed mt-2 mb-10">
                     광고 영상 대본은 센터의 장점과 담고 싶은 내용을 촬영하기 위해 센터에서 직접 작성합니다!<br />
-                    아래 예시 대본은 포맷화된 예시이며, 광고 영상을 만드는데 있어 일부 형식적인 부분이 있을 수 있습니다.<br /><br />
+                    대본은 A4 용지 2쪽 이내 분량이 적절하며, 작성하시는 데에 궁금한 점이나 애로사항이 있으시면 언제든지 촬영팀에게 문의해주세요!<br />
+                    아래 예시 대본은 포맷화된 예시이며, 광고 영상을 만드는데 있어 참고해주시고 센터의 장점과 소구 포인트를 최대한 담아주세요!<br /><br />
 
                     담고 싶은 내용이 있으시다면! 꼭 말씀해주세요! 무조건 반영해드립니다!<br />
                     </p>
@@ -254,7 +228,10 @@ export default function DagymGuide () {
                                         <p className="text-left font-normal text-lg">
                                         <strong className="text-orange-500">A. 000의 OT</strong>는 운동을 처음 하시는 분, 초보이신 분들을 위해 인바디 체성분 측정, 체형 분석을 통해 객관적인 회원님의 현재 몸 상태와 운동의 방향성을 제공해드리고 있습니다.<br /><br />
                                         다양한 기구 사용 방법, 운동 자세 등을 친절하게 도와드리고 있습니다. 
-                                        (다 회 제공 시) OT는 운동을 처음 하시는 분, 초보이신 분들을 위해 매 월 0회 제공해드리고 있습니다.
+                                        (다 회 제공 시) OT는 운동을 처음 하시는 분, 초보이신 분들을 위해 매 월 0회 제공해드리고 있습니다.<br /><br />
+                                        000의 OT는 회원님께 우선 운동 목적을 여쭤봅니다. 다이어트, 체력 증진, 근육 증가, 체형 교정, 벌크업, 대회 준비 등 다양한 목적을 먼저 인지한 후 인바디 체성분 측정과 체형 측정을 통해 회원님의 현재 몸 상태를 객관적인 지표와 함께 분석해드립니다.<br />
+                                        이후 운동의 방향성을 잡아드리고 단기 또는 중장기에 따른 운동 목적과 목표 또한 제안드립니다.<br /><br />
+                                        전반적인 기구 사용법과 앞으로 운동함에 있어 어떠한 부분에 주안점을 가져가야하는지 또한 친절하게 안내해드립니다.
                                         </p>
                                     </ToggleSection>
 
@@ -263,9 +240,13 @@ export default function DagymGuide () {
                                         <strong className="text-orange-500">A. 000의 PT</strong>는 다양한 대회 수상 경력, 생활체육지도사, 재활 등 다양한 자격을 보유하고 있는 선생님이
                                         항상 회원님들을 먼저 생각하며, 부담없이 친절하게 먼저 다가가 최선을 다해 지도해드리고 있습니다.<br /><br />
                                         다이어트, 벌크업, 체력 증가, 건강 증진, 바디 프로필, 대회 준비 등 회원님들의 다양한 목적에 맞춘 프로그램이 준비되어 있으며,<br /><br />
-                                        밀도있고 깊이 있는 / 체계적인 커리큘럼과 직관적이며 친절한 / 수업을 통해
-                                        회원님께서 보다 빠르게 / 안전하게 / 완벽하게 / 재밌게 / 다치지 않게 운동할 수 있도록 최선을 다하고 있습니다.<br /><br />
-                                        000에서 운동하시면 회원님께서 원하시는 목표를 / 목적을 모두 이룰 수 있습니다.
+                                        밀도있고 깊이 있는 / 체계적인 커리큘럼과 직관적이며 친절한 수업을 통해
+                                        회원님께서 보다 빠르게 / 안전하게 / 완벽하게 / 재밌게 / 다치지 않게 운동하도록 최선을 다하고 있습니다.<br /><br />
+                                        000에서 운동하시면 회원님께서 원하시는 목표를 / 목적을 모두 이룰 수 있습니다.<br /><br />
+                                        저희 PT는 안전을 최우선으로 생각합니다. 웨이트 운동을 지속적으로 수행하다보면 자연스레 중량이 증가하고 좋지 않은 자세, 습관 등이 고쳐지지 않는다면 필연적으로 부상이 찾아올 수 밖에 없습니다.<br />
+                                        그렇기 때문에 하나의 동작을 수행하더라도 단순히 무게, 중량에 집착하기 보다 정확한 자세, 나의 체형과 밸런스에 맞는 무게를 익히면서 운동을 하실 수 있도록 가르쳐드리고 있습니다.<br /><br />
+                                        저희 PT는 운동의 진정한 재미를 알려드립니다. 운동. 좋은 것 모두가 압니다. 그렇지만 왜 계속 하지 못하느냐? 결과를 내지 못하느냐? 재미를 느끼지 못해서입니다.<br />
+                                        사실 운동은 정말 재미있습니다. 절대 힘들기만 한게 아닙니다. 저희는 회원님들과 함께 마치 내가 운동하는 것 마냥 재미있게 운동합니다. 과정이 재미있으면 결과 또한 좋기 마련입니다.<br /><br />
                                         </p>
                                     </ToggleSection>
                                 </div>
@@ -284,13 +265,55 @@ export default function DagymGuide () {
                                         저희 센터는 <strong className="text-orange-500">주차</strong>가 00대 가능하고, 0시간 무료 (전면 무료, 발렛 파킹)이기 때문에 편안하게 운동에 집중하실 수 있습니다.
                                         </p>
                                     </ToggleSection>
+
+                                    <ToggleSection title="반신욕기">
+                                        <p className="text-left font-normal text-lg">
+                                        저희 센터는 <strong className="text-orange-500">건식 반신욕기</strong>가 00대 있어서, 운동 전후로 워밍업이나 근육의 피로를 푸는데 도움을 드리고 있습니다. 
+                                        </p>
+                                    </ToggleSection>
+
+                                    <ToggleSection title="자판기 (바디 체리쉬)">
+                                        <p className="text-left font-normal text-lg">
+                                        저희 센터는 <strong className="text-orange-500">바디 체리쉬 </strong>자판기가 있어서 카페인 음료, 부스터, 닭가슴살 등 도움이 되는 식품을 센터에서 쉽게 구매할 수 있습니다.
+                                        </p>
+                                    </ToggleSection>
                                 </div>
                             },
                             { title: '선생님', content: 
-                                <div className="text-left">선생님 내용입니다.</div>
+                                <div className="text-left">
+                                    <ToggleSection title="Q. 선생님 경력은 어떻게 되나요?">
+                                        <p className="text-left font-normal text-lg">
+                                        저희 선생님은 <strong className="text-orange-500">기본 5년 이상 경력을 가진 </strong> 선생님들이 상주하시기 때문에 회원님들께 보다 전문적인 티칭이 가능합니다.<br />
+                                        또한 체육학 전공, 생활체육지도사 자격증 등 필요한 자격증을 보유하고 있어 다양한 회원님의 케이스와 운동 목적에 맞는 운동을 티칭해드릴 수 있습니다.
+                                        </p>
+                                    </ToggleSection>
+
+                                    <ToggleSection title="Q. 선생님들의 수상 이력이 있을까요?">
+                                        <p className="text-left font-normal text-lg">
+                                        저희 선생님은 <strong className="text-orange-500">피지크, 나바, 보디빌딩 대회 등 </strong> 다양한 대회의 수상 경력을 가지고 계십니다.<br />
+                                        그렇기 때문에 누구보다 전문적이고 디테일한 수업이 가능하며, 끊임없이 운동에 대해 연구하고 회원님과 함께 발전해나가고 있습니다.
+                                        </p>
+                                    </ToggleSection>
+
+                                    <ToggleSection title="Q. 선생님들의 마인드는 어떤가요?">
+                                        <p className="text-left font-normal text-lg">
+                                        저희 선생님은 <strong className="text-orange-500">회원님의 몸을 내몸 처럼 </strong> 생각합니다.<br />
+                                        단순히 숫자만 세는 티칭이 아닌, 다양한 회원님의 가지고 계신 운동 수행능력과 목표 그리고 그 날의 컨디션에 맞추어 회원님께서 점진적 우상향으로 몸이 좋아질 수 있도록<br />
+                                        목표를 이루실 수 있도록 최선을 다해서 운동을 지도해드리고 있습니다.
+                                        </p>
+                                    </ToggleSection>
+                                </div>
                             },
                         ]}
                     />
+
+                    {/* 대본작성하기 버튼
+                    <div className="justify-center mx-auto flex mt-10">
+                        <Link to="/editor" className="mx-auto justify-cetner text-center bg-blue-600 rounded-2xl px-6 py-2 text-white text-xl font-semibold hover:bg-blue-500 transition">
+                            대본 작성하기
+                        </Link>
+                    </div>
+                    */}
 
                     <h2 id="reference" className="text-left text-2xl md:text-3xl font-semibold mt-20 mb-4">📓  레퍼런스 (참고 영상)</h2>
                     <div className="mt-2 mb-6">

@@ -10,7 +10,7 @@ export default function ToggleDrop({ items }){
                     <button 
                         key={index}
                         onClick={() => setOpenIndex(index)}
-                        className={`items-center px-6 md:px-12 py-2 font-ibm font-medium rounded-full bg-gray-900 hover:bg-gray-800 transition                            ${ openIndex === index ? 'text-white' : 'text-gray-400' }`}
+                        className={`items-center px-6 md:px-12 py-2 font-ibm font-medium rounded-full bg-gray-800 hover:bg-gray-700 transition                            ${ openIndex === index ? 'text-white' : 'text-gray-400' }`}
                     >
                         {item.title}
                     </button>
