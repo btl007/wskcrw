@@ -225,3 +225,35 @@ body {
     font-weight: 900;
     font-style: italic;
   }
+
+.script-delete-button {
+  position: absolute;
+  top: 50%; /* Vertically center */
+  left: -80px; /* Position outside the block on the left */
+  transform: translateY(-50%); /* Adjust for true vertical center */
+  color: white; /* Default font color */
+  border: none;
+  border-radius: 0.5rem; /* rounded-lg */
+  width: auto; /* Adjust width to content */
+  padding: 2px 8px; /* Add padding */
+  height: auto; /* Adjust height to content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.script-delete-button:hover {
+  color: red; /* Font color changes to red on button hover */
+}
+
+.script-container:hover .script-delete-button {
+  opacity: 1; /* Show on hover */
+  background-color: #475569; /* slate-800 */
+}
+
+.script-container {
+  position: relative;
+}

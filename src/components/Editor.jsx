@@ -6,9 +6,19 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getRoot } from 'lexical';
+import {
+  KEY_ENTER_COMMAND,
+  COMMAND_PRIORITY_LOW,
+  COMMAND_PRIORITY_HIGH,
+  COMMAND_PRIORITY_CRITICAL,
+  $getSelection,
+  $isRangeSelection,
+  $createParagraphNode,
+  $getRoot,
+} from 'lexical';
+import { $getNearestNodeOfType } from '@lexical/utils';
 import React, { useEffect } from 'react';
-import { ScriptContainerNode } from '../nodes/ScriptContainerNode';
+import { $createScriptContainerNode, $isScriptContainerNode, ScriptContainerNode } from '../nodes/ScriptContainerNode';
 
 const STORAGE_KEY = 'lexical-editor-content';
 
@@ -35,12 +45,68 @@ function OnReadyPlugin({ onReady }) {
   return null;
 }
 
+function EnterKeyPlugin() {
+  const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    return editor.registerCommand(
+      KEY_ENTER_COMMAND,
+      (event) => {
+        const selection = $getSelection();
+        if (!$isRangeSelection(selection)) {
+          return false;
+        }
+
+        // Handle Shift+Enter: Let Lexical handle it (insert line break)
+        if (event.shiftKey) {
+          return false;
+        }
+
+        // Handle Enter: Create a new ScriptContainerNode
+        const anchorNode = selection.anchor.getNode();
+        const scriptContainerNode = $getNearestNodeOfType(anchorNode, ScriptContainerNode);
+
+        if (scriptContainerNode) {
+          // If we are inside a ScriptContainerNode
+          editor.update(() => {
+            const newScriptContainerNode = $createScriptContainerNode();
+            const newParagraphNode = $createParagraphNode();
+            newScriptContainerNode.append(newParagraphNode);
+
+            // Insert the new block after the current one
+            scriptContainerNode.insertAfter(newScriptContainerNode);
+
+            // Ensure the selection is correctly placed at the start of the new paragraph
+            newParagraphNode.selectStart();
+
+            // Defensive cleanup: Check if an empty paragraph was implicitly created
+            // by Lexical's default Enter behavior (or other interactions)
+            // immediately before the new block, and remove it to ensure a clean structure.
+            const previousSibling = newScriptContainerNode.getPreviousSibling();
+            if (previousSibling && previousSibling.isEmpty() && previousSibling.getType() === 'paragraph') {
+                previousSibling.remove();
+            }
+          });
+          event.preventDefault(); // Prevent default browser Enter behavior
+          return true; // Consume the event
+        }
+
+        // If not inside a ScriptContainerNode, let Lexical handle it (e.g., create a new paragraph)
+        return false;
+      },
+      COMMAND_PRIORITY_CRITICAL // Critical priority to ensure override of default Enter behavior
+    );
+  }, [editor]);
+
+  return null;
+}
+
 export default function Editor({ onChange, onReady }) {
   const initialConfig = {
     namespace: 'MinimalEditor',
     theme: {
       paragraph: 'text-base text-white',
-      scriptContainer: 'bg-[rgb(25,25,25)] rounded-lg px-4',
+      scriptContainer: 'script-container bg-slate-800 rounded-lg p-4 my-2',
     },
     onError: (error) => {
       console.error('Lexical Error:', error);
@@ -78,6 +144,7 @@ export default function Editor({ onChange, onReady }) {
         <HistoryPlugin />
         <SavePlugin />
         <OnReadyPlugin onReady={onReady} />
+        <EnterKeyPlugin />
       </div>
     </LexicalComposer>
   );
