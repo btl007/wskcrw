@@ -5,10 +5,14 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $getRoot } from 'lexical';
+import React, { useEffect } from 'react';
+import { ScriptContainerNode } from '../nodes/ScriptContainerNode';
 
 const STORAGE_KEY = 'lexical-editor-content';
 
+//저장 플러그인
 function SavePlugin() {
   const handleChange = (editorState) => {
     editorState.read(() => {
@@ -17,30 +21,43 @@ function SavePlugin() {
       console.log("Saved to localStorage:", json);
     });
   };
-
   return <OnChangePlugin onChange={handleChange} />;
 }
 
-export default function Editor() {
+// onReady를 처리하는 플러그인
+function OnReadyPlugin({ onReady }) {
+  const [editor] = useLexicalComposerContext();
+  useEffect(() => {
+    if (onReady) {
+      onReady(editor);
+    }
+  }, [editor, onReady]);
+  return null;
+}
+
+export default function Editor({ onChange, onReady }) {
   const initialConfig = {
     namespace: 'MinimalEditor',
     theme: {
       paragraph: 'text-base text-white',
+      scriptContainer: 'bg-[rgb(25,25,25)] rounded-lg px-4',
     },
     onError: (error) => {
       console.error('Lexical Error:', error);
     },
-    nodes: [],
-    editorState: () => {
+    nodes: [ScriptContainerNode],
+    initialEditorState: (editor) => {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         try {
-          return JSON.parse(saved);
+          const parsed = JSON.parse(saved);
+          const editorState = editor.parseEditorState(parsed);
+          editor.setEditorState(editorState);
         } catch (e) {
           console.warn("Failed to parse saved state", e);
         }
       }
-      return null;
+      
     },
   };
 
@@ -60,6 +77,7 @@ export default function Editor() {
         />
         <HistoryPlugin />
         <SavePlugin />
+        <OnReadyPlugin onReady={onReady} />
       </div>
     </LexicalComposer>
   );
