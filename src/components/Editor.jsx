@@ -14,10 +14,13 @@ import {
   $getSelection,
   $isRangeSelection,
   $createParagraphNode,
+  ParagraphNode,
   $getRoot,
 } from 'lexical';
 import { $getNearestNodeOfType } from '@lexical/utils';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { createPortal } from 'react-dom'; // Added this import
+import { BlockManagementMenu } from '../components/BlockManagementMenu'; // Added this import
 import { $createScriptContainerNode, $isScriptContainerNode, ScriptContainerNode } from '../nodes/ScriptContainerNode';
 
 const STORAGE_KEY = 'lexical-editor-content';
@@ -101,12 +104,135 @@ function EnterKeyPlugin() {
   return null;
 }
 
-export default function Editor({ onChange, onReady }) {
+// New Plugin: Automatically wraps top-level ParagraphNodes in ScriptContainerNodes
+function ParagraphToScriptBlockPlugin() {
+  const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    // Register a node transform for ParagraphNode
+    return editor.registerNodeTransform(ParagraphNode, (paragraphNode) => {
+      // Only transform if it's a direct child of the RootNode
+      const parent = paragraphNode.getParent();
+      if (!parent || parent.getType() !== 'root') {
+        return; // Not a top-level paragraph
+      }
+
+      // Create a new ScriptContainerNode
+      const scriptContainerNode = $createScriptContainerNode();
+
+      // Replace the original ParagraphNode with the new ScriptContainerNode
+      // This effectively moves the paragraphNode out of its current parent
+      // and places scriptContainerNode in its place.
+      paragraphNode.replace(scriptContainerNode);
+
+      // Append the original paragraphNode (with its content) into the new scriptContainerNode
+      scriptContainerNode.append(paragraphNode);
+
+            // Check if the paragraphNode is empty and not dirty (i.e., not actively being typed into)
+      // This helps prevent transforming the initial empty paragraph.
+      if (paragraphNode.isEmpty() && !paragraphNode.isDirty()) {
+        return; // Don't transform empty, clean paragraphs
+      }
+    });
+  }, [editor]);
+
+  return null;
+}
+
+// New Plugin: Renders BlockManagementMenu for each ScriptContainerNode
+// This has been refactored to be more robust and avoid race conditions.
+function BlockManagementMenuPortal({ editor, nodeKey }) {
+  const [domElement, setDomElement] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const timerRef = useRef(null);
+
+  const show = () => {
+    clearTimeout(timerRef.current);
+    setIsHovered(true);
+  };
+
+  const hide = () => {
+    timerRef.current = setTimeout(() => setIsHovered(false), 100);
+  };
+
+  useEffect(() => {
+    const element = editor.getElementByKey(nodeKey);
+    setDomElement(element);
+  }, [editor, nodeKey]);
+
+  useEffect(() => {
+    if (!domElement) return;
+
+    domElement.addEventListener('mouseenter', show);
+    domElement.addEventListener('mouseleave', hide);
+
+    return () => {
+      domElement.removeEventListener('mouseenter', show);
+      domElement.removeEventListener('mouseleave', hide);
+    };
+  }, [domElement]);
+
+  if (!domElement) {
+    return null;
+  }
+
+  const rect = domElement.getBoundingClientRect();
+
+  return isHovered
+    ? createPortal(
+        <BlockManagementMenu
+          editor={editor}
+          nodeKey={nodeKey}
+          rect={rect}
+          show={show}
+          hide={hide}
+        />,
+        document.body
+      )
+    : null;
+}
+
+function BlockManagementRendererPlugin() {
+  const [editor] = useLexicalComposerContext();
+  const [nodeKeys, setNodeKeys] = useState([]);
+
+  useEffect(() => {
+    // Listen to updates and get the keys of all ScriptContainerNodes
+    return editor.registerUpdateListener(({ editorState }) => {
+      editorState.read(() => {
+        const newKeys = [];
+        const root = $getRoot();
+        root.getChildren().forEach((node) => {
+          if ($isScriptContainerNode(node)) {
+            newKeys.push(node.getKey());
+          }
+        });
+
+        // Update state only if the keys have changed
+        if (JSON.stringify(newKeys) !== JSON.stringify(nodeKeys)) {
+          setNodeKeys(newKeys);
+        }
+      });
+    });
+  }, [editor, nodeKeys]); // Rerun if editor or keys change
+
+  // For each key, render a portal. The portal component handles the DOM lookup.
+  return (
+    <>
+      {nodeKeys.map((key) => (
+        <BlockManagementMenuPortal key={key} editor={editor} nodeKey={key} />
+      ))}
+    </>
+  );
+}
+
+
+export default function Editor({ onChange, onReady, customChildren }) {
   const initialConfig = {
     namespace: 'MinimalEditor',
     theme: {
       paragraph: 'text-base text-white',
-      scriptContainer: 'script-container bg-slate-800 rounded-lg p-4 my-2',
+      scriptContainer: 'script-container bg-[rgb(25,25,25)] rounded-lg px-4 py-1',
     },
     onError: (error) => {
       console.error('Lexical Error:', error);
@@ -145,6 +271,9 @@ export default function Editor({ onChange, onReady }) {
         <SavePlugin />
         <OnReadyPlugin onReady={onReady} />
         <EnterKeyPlugin />
+        <ParagraphToScriptBlockPlugin />
+        <BlockManagementRendererPlugin /> {/* Add the new plugin here */}
+        {customChildren} {/* Render custom children here */}
       </div>
     </LexicalComposer>
   );

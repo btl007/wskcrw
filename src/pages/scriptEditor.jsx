@@ -1,5 +1,7 @@
-// scriptEditor.jsx
-import React from 'react';
+import React, { useState } from 'react';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { useSupabase } from '../components/SupabaseProvider';
+import { useUser } from '@clerk/clerk-react';
 import Editor from '../components/Editor';
 import {
   $getSelection,
@@ -7,10 +9,53 @@ import {
   $createParagraphNode,
   $createTextNode,
 } from 'lexical';
-import { useState } from 'react';
 import { $createScriptContainerNode } from '../nodes/ScriptContainerNode';
 
 import sampleScripts from '../data/sampleScript';
+
+// SaveButton Component
+const SaveButton = () => {
+  const [editor] = useLexicalComposerContext();
+  const supabase = useSupabase();
+  const { user } = useUser();
+
+  const handleSave = async () => {
+    if (!supabase || !user) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+
+    const editorState = editor.getEditorState();
+    const content = editorState.toJSON();
+
+    const { data, error } = await supabase
+      .from('scripts')
+      .insert({
+        user_id: user.id,
+        title: 'My Script', // Placeholder title
+        content: content,
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error saving script:', error);
+      alert(`저장에 실패했습니다: ${error.message}`);
+    } else {
+      console.log('Script saved:', data);
+      alert('스크립트가 성공적으로 저장되었습니다!');
+    }
+  };
+
+  return (
+    <button
+      onClick={handleSave}
+      className="absolute top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      저장
+    </button>
+  );
+};
 
 export default function ScriptEditor() {
   const [editorInstance, setEditorInstance] = useState(null);
@@ -32,18 +77,14 @@ export default function ScriptEditor() {
       containerNode.append(paragraphNode);
 
       if (topLevelNode && typeof topLevelNode.insertAfter === 'function') {
-        // 최상위 노드가 비어있는 문단이면, 그 노드를 교체합니다.
         if (topLevelNode.isEmpty() && topLevelNode.getType() === 'paragraph') {
           topLevelNode.replace(containerNode);
         } else {
-          // 그렇지 않으면, 현재 노드 뒤에 삽입합니다.
           topLevelNode.insertAfter(containerNode);
         }
       } else {
-        // 비어있는 에디터 등의 예외 상황을 위한 폴백 로직입니다.
         selection.insertNodes([containerNode]);
       }
-      // 더 나은 사용자 경험을 위해 새로 만든 노드의 끝으로 커서를 이동합니다.
       containerNode.selectEnd();
     });
   };
@@ -62,7 +103,7 @@ export default function ScriptEditor() {
             <h4 className="text-lg font-bold text-white">
               {script.title}
             </h4>
-                    <span className="px-2 py-1 text-xs bg-blue-500 text-white rounded-lg">
+            <span className="px-2 py-1 text-xs bg-blue-500 text-white rounded-lg">
               {script.props}
             </span>
             <p className="text-base text-gray-300">
@@ -72,9 +113,9 @@ export default function ScriptEditor() {
         ))}
       </div>
 
-      <div className="flex-1 p-10 max-w-4xl mx-auto">
+      <div className="flex-1 p-10 max-w-4xl mx-auto relative">
         <h1 className="text-3xl font-bold mb-6 text-white">Script Editor</h1>
-        <Editor onReady={setEditorInstance} />
+        <Editor onReady={setEditorInstance} customChildren={<SaveButton />} />
       </div>
     </section>
   );

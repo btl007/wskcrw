@@ -226,34 +226,79 @@ body {
     font-style: italic;
   }
 
-.script-delete-button {
+.script-container {
+  position: relative; /* This is critical for positioning the menu */
+}
+
+.block-management-menu-container {
   position: absolute;
-  top: 50%; /* Vertically center */
-  left: -80px; /* Position outside the block on the left */
-  transform: translateY(-50%); /* Adjust for true vertical center */
-  color: white; /* Default font color */
+  top: 50%;
+  left: -80px; /* Adjust as needed to position outside the block */
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.script-container:hover .block-management-menu-container {
+  opacity: 1; /* Show on hover */
+}
+
+.block-management-toggle-button {
+  background-color: #475569;
+  color: white;
   border: none;
   border-radius: 0.5rem; /* rounded-lg */
-  width: auto; /* Adjust width to content */
-  padding: 2px 8px; /* Add padding */
-  height: auto; /* Adjust height to content */
+  width: auto;
+  padding: 2px 8px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  opacity: 0; /* Hidden by default */
-  transition: opacity 0.2s ease-in-out;
+  font-weight: bold;
 }
 
-.script-delete-button:hover {
-  color: red; /* Font color changes to red on button hover */
+.block-management-toggle-button:hover {
+  background-color: #64748b; /* slate-600 */
 }
 
-.script-container:hover .script-delete-button {
-  opacity: 1; /* Show on hover */
-  background-color: #475569; /* slate-800 */
+.block-management-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #1e293b; /* slate-800 */
+  border-radius: 0.5rem;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 11;
 }
 
-.script-container {
-  position: relative;
+.block-management-option {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 0.25rem;
+}
+
+.block-management-option:hover {
+  background-color: #334155; /* slate-700 */
+}
+
+.block-management-option svg {
+  color: white /* Default icon Color */
+}
+
+.block-management-option:hover svg {
+  color: red;
 }
