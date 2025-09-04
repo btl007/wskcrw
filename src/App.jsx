@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <div className="min-h-screen">
+      <div className="min-h-screen mt-30">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dagymguide" element={<DagymGuide />} />
@@ -21,19 +21,8 @@ function App() {
           
           {/* Private Route */}
           <Route
-            path="/editor"
-            element={
-              <>
-                <SignedIn>
-                  <ScriptEditor />
-                </SignedIn>
-                <SignedOut>
-                  <div className="w-full h-screen flex justify-center items-center">
-                   <SignIn />
-                  </div>
-                </SignedOut>
-              </>
-            }
+            path="/editor/:scriptId?"
+            element={<ScriptEditor />}
           />
 
           {/* Sign In & Sign Up */}
