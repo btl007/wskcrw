@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { SignedIn, SignedOut, SignIn, SignUp, UserButton } from '@clerk/clerk-react';
 
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -7,33 +6,21 @@ import NotFound from './pages/NotFound'; //404대응
 
 import DagymGuide from './pages/dagymguide';
 import Works from './pages/Works';
-import ScriptEditor from './pages/scriptEditor';
+
+import Welcome from './pages/welcome';
 
 function App() {
   return (
     <Router>
-      <Header />
-      <div className="min-h-screen mt-30">
+      
+      <div className="min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dagymguide" element={<DagymGuide />} />
           <Route path="/works" element={<Works />} />
+          <Route path="/welcome" element={<Welcome />} />
           
-          {/* Private Route */}
-          <Route
-            path="/editor/:scriptId?"
-            element={<ScriptEditor />}
-          />
-
-          {/* Sign In & Sign Up */}
-          <Route
-            path="/sign-in/*"
-            element={<SignIn routing="path" path="/sign-in" />}
-          />
-          <Route
-            path="/sign-up/*"
-            element={<SignUp routing="path" path="/sign-up" />}
-          />
+          
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />

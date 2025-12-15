@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.45.0",
+    
     "@fontsource/ibm-plex-sans-kr": "^5.2.6",
     "@fontsource/roboto-mono": "^5.2.6",
     "@fontsource/unbounded": "^5.2.6",

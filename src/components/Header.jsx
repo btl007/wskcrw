@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 import logo from '../img/wsk_logo_white.png';
 
@@ -14,7 +13,6 @@ export default function Header() {
     { label: "Works", to: "works" },
     { label: "Contact", to: "contact" },
     { label: "DagymGuide", to: "dagymguide" },
-    { label: "ScriptEditor", to: "editor" },
   ];
 
   return (
@@ -39,14 +37,9 @@ export default function Header() {
               {menu.label}
             </Link>
           ))}
-          <SignedIn>
-            <UserButton afterSignOutUrl="/" />
-          </SignedIn>
-          <SignedOut>
-            <Link to="/sign-in" className="px-4 py-2 rounded-full hover:bg-white/20 text-white transition duration-200">
-              Sign In
-            </Link>
-          </SignedOut>
+          
+            
+          
         </nav>
 
         {/* Mobile Hamburger */}
@@ -88,16 +81,9 @@ export default function Header() {
                 </Link>
               ))}
               <div className="mt-4">
-                <SignedIn>
-                  <UserButton afterSignOutUrl="/" />
-                </SignedIn>
-                <SignedOut>
-                  <Link to="/sign-in" className="text-lg font-unbounded hover:text-yellow-400 transition"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Sign In
-                  </Link>
-                </SignedOut>
+                
+                  
+                
               </div>
             </motion.div>
           </>

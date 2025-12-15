@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Header from '../components/Header';
-import bgVideo from '../../src/bg.mp4'
+
 
 export default function Home() {
     return(
