@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -11,7 +11,7 @@ import Welcome from './pages/welcome';
 
 function App() {
   return (
-    <Router>
+    <>
       
       <div className="min-h-screen">
         <Routes>
@@ -26,7 +26,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-    </Router>
+    </>
   );
 }
 

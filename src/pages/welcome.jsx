@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Clipboard, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import logo from '../img/wsk_logo_white.png';
+import og_welcome from '../img/wsk_og_welcome.png';
 import naverMap from '../img/navermap.png';
 import tMap from '../img/tmap.png';
 
@@ -24,6 +26,14 @@ const Welcome = () => {
 
   return (
     <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center p-10 sm:p-6">
+      <Helmet>
+        <title>WSK CRW 방문을 환영합니다!</title>
+        <meta name="description" content="WSK CRW에 오신 것을 환영합니다. 방문 및 주차 정보를 확인하세요." />
+        <meta property="og:title" content="WSK CRW 방문을 환영합니다!" />
+        <meta property="og:description" content="WSK CRW에 오신 것을 환영합니다. 방문 및 주차 정보를 확인하세요." />
+        <meta property="og:image" content={og_welcome} />
+        <meta property="og:url" content="https://www.wskcrw.com/welcome" />
+      </Helmet>
       <AnimatePresence>
         {(locationCopied || parkingCopied) && (
           <motion.div
@@ -51,7 +61,7 @@ const Welcome = () => {
             <div className="flex justify-center mt-6 mb-6">
               <img src={logo} className="w-60 sm:w-100 drop-shadow" />
             </div>
-            <div className="mt-10">
+            <div className="mt-10 cursor-default">
             <span className="text-6xl sm:text-8xl md:text-10xl font-bold font-clash drop-shadow">
                 😆
             </span>
